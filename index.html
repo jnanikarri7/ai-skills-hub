@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Data Engineer Skills Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f5f3ee;
+    --bg2: #edeae3;
+    --ink: #1a1814;
+    --ink2: #5a5650;
+    --accent: #d4622a;
+    --accent2: #2a7dd4;
+    --accent3: #2ab87a;
+    --card: #ffffff;
+    --border: #ddd9d1;
+    --mono: 'DM Mono', monospace;
+    --serif: 'Fraunces', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--bg);
+    cursor: pointer;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 0.25rem; }
+  .nav-link {
+    background: none; border: none;
+    color: #aaa;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .nav-link:hover { color: var(--bg); }
+  .nav-link.active { background: var(--accent); color: white; }
+
+  /* PAGES */
+  .page { display: none; min-height: calc(100vh - 56px); }
+  .page.active { display: block; }
+
+  /* CONTAINER */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ──────────── HOME PAGE ──────────── */
+  .hero {
+    background: var(--ink);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 40%, rgba(212,98,42,0.18) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(42,125,212,0.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+  .hero-title em { color: var(--accent); font-style: normal; }
+  .hero-sub {
+    font-size: 1rem;
+    color: #aaa;
+    max-width: 560px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: inline-flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.55); }
+
+  .section { padding: 3.5rem 0; }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+  .section-sub { color: var(--ink2); font-size: 0.9rem; margin-bottom: 2rem; }
+
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (max-width: 640px) { .what-grid { grid-template-columns: 1fr; } }
+  .what-text p { color: var(--ink2); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1rem; }
+  .what-text p:last-child { margin-bottom: 0; }
+  .what-visual {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .what-visual-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+  }
+  .role-chip {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.8rem;
+    margin: 0.2rem;
+    font-weight: 500;
+  }
+  .role-chip .dot { width: 7px; height: 7px; border-radius: 50%; }
+
+  /* CATEGORY CARDS */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .cat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .cat-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 4px;
+  }
+  .cat-card.foundations::before { background: #d4622a; }
+  .cat-card.ml::before { background: #2a7dd4; }
+  .cat-card.mlops::before { background: #8c42d4; }
+  .cat-card.llm::before { background: #d4a242; }
+  .cat-card.streaming::before { background: #2ab87a; }
+  .cat-card.dq::before { background: #d44272; }
+  .cat-card-icon { font-size: 1.5rem; margin-bottom: 0.6rem; }
+  .cat-card-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; }
+  .cat-card-desc { color: var(--ink2); font-size: 0.82rem; line-height: 1.5; margin-bottom: 0.75rem; }
+  .cat-card-footer { display: flex; align-items: center; justify-content: space-between; }
+  .cat-count {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--ink2);
+  }
+  .cat-tag {
+    font-size: 0.72rem; font-weight: 500;
+    background: var(--bg);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--ink2);
+  }
+
+  /* ──────────── SKILLS PAGE ──────────── */
+  .skills-header { padding: 2.5rem 0 0; }
+  .filters-bar {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .filter-label { font-size: 0.8rem; color: var(--ink2); font-weight: 500; }
+  .filter-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .pill {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.28rem 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--ink2);
+  }
+  .pill.active { background: var(--ink); color: white; border-color: var(--ink); }
+  .pill:hover:not(.active) { border-color: var(--ink2); color: var(--ink); }
+  .trending-toggle {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-left: auto;
+  }
+  .toggle-switch {
+    width: 36px; height: 20px;
+    background: var(--border);
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    flex-shrink: 0;
+  }
+  .toggle-switch.on { background: var(--accent3); }
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    width: 14px; height: 14px;
+    background: white;
+    border-radius: 50%;
+    top: 3px; left: 3px;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .toggle-switch.on::after { transform: translateX(16px); }
+  .toggle-label { font-size: 0.8rem; color: var(--ink2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    padding-bottom: 3rem;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.15s;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .skill-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .skill-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+  .skill-name { font-weight: 600; font-size: 0.95rem; line-height: 1.3; }
+  .trending-badge {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    color: #c2410c;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+  .skill-meta { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .meta-tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-weight: 500;
+    background: var(--bg);
+    color: var(--ink2);
+    border: 1px solid var(--border);
+  }
+  .meta-tag.cat-foundations { background: #fff4f0; color: #c04010; border-color: #fbd0c0; }
+  .meta-tag.cat-ml { background: #f0f6ff; color: #1d5fb5; border-color: #c0d8fb; }
+  .meta-tag.cat-mlops { background: #f5f0ff; color: #6b21c0; border-color: #d8c0fb; }
+  .meta-tag.cat-llm { background: #fffbf0; color: #b56a10; border-color: #fbe0a0; }
+  .meta-tag.cat-streaming { background: #f0fff8; color: #157a4a; border-color: #a0fbd0; }
+  .meta-tag.cat-dq { background: #fff0f5; color: #b52060; border-color: #fba0c8; }
+  .meta-tag.level-beginner { background: #f0fff8; color: #157a4a; border-color: #a0fbd0; }
+  .meta-tag.level-intermediate { background: #fffbf0; color: #b56a10; border-color: #fbe0a0; }
+  .meta-tag.level-advanced { background: #fff0f5; color: #b52060; border-color: #fba0c8; }
+  .skill-summary { color: var(--ink2); font-size: 0.83rem; line-height: 1.55; }
+  .skill-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 0.4rem; }
+  .hours-chip {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink2);
+  }
+  .view-btn {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  /* ──────────── SKILL DETAIL ──────────── */
+  .detail-page { padding-bottom: 4rem; }
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: none; border: none;
+    color: var(--ink2);
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    margin-bottom: 1.5rem;
+    font-family: var(--sans);
+    transition: color 0.15s;
+  }
+  .back-btn:hover { color: var(--ink); }
+  .detail-header {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .detail-title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .detail-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+  .detail-body { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; }
+  @media (max-width: 768px) { .detail-body { grid-template-columns: 1fr; } }
+  .detail-main { display: flex; flex-direction: column; gap: 1.5rem; }
+  .detail-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+  }
+  .detail-section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink2);
+    margin-bottom: 0.6rem;
+  }
+  .detail-section p { color: var(--ink2); font-size: 0.9rem; line-height: 1.7; }
+  .code-block {
+    background: #1a1814;
+    border-radius: 8px;
+    padding: 1.2rem;
+    overflow-x: auto;
+  }
+  .code-block code {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: #d0cec8;
+    white-space: pre;
+    line-height: 1.7;
+  }
+  .code-kw { color: #d4622a; }
+  .code-str { color: #2ab87a; }
+  .code-cmt { color: #666; font-style: italic; }
+  .tags-container { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .tag-pill {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem 0.7rem;
+    font-size: 0.75rem;
+    color: var(--ink2);
+    font-family: var(--mono);
+  }
+  .detail-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+  .sidebar-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .sidebar-card-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem; }
+  .related-skill {
+    display: flex; flex-direction: column; gap: 0.2rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: var(--bg);
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-bottom: 0.5rem;
+  }
+  .related-skill:last-child { margin-bottom: 0; }
+  .related-skill:hover { background: var(--bg2); }
+  .related-skill-name { font-size: 0.85rem; font-weight: 500; }
+  .related-skill-meta { display: flex; gap: 0.3rem; }
+  .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid var(--border); }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-label { font-size: 0.8rem; color: var(--ink2); }
+  .stat-value { font-family: var(--mono); font-size: 0.8rem; font-weight: 500; }
+
+  /* ──────────── ROADMAP PAGE ──────────── */
+  .roadmap-page { padding: 2.5rem 0 4rem; }
+  .roadmap-grid { display: grid; grid-template-columns: 360px 1fr; gap: 2rem; align-items: start; }
+  @media (max-width: 768px) { .roadmap-grid { grid-template-columns: 1fr; } }
+  .roadmap-form-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: sticky; top: 70px;
+  }
+  .roadmap-form-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; margin-bottom: 1.25rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-label { font-size: 0.8rem; font-weight: 600; color: var(--ink2); display: block; margin-bottom: 0.4rem; letter-spacing: 0.04em; text-transform: uppercase; }
+  .form-select, .form-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 0.85rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-select:focus, .form-input:focus { border-color: var(--accent); }
+  .form-submit {
+    width: 100%;
+    background: var(--ink);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--accent); }
+  .roadmap-output { display: flex; flex-direction: column; gap: 0; }
+  .roadmap-empty {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--ink2);
+  }
+  .roadmap-empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+  .roadmap-empty-text { font-size: 0.9rem; }
+  .week-block {
+    position: relative;
+    padding-left: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .week-block::before {
+    content: '';
+    position: absolute;
+    left: 0.85rem;
+    top: 28px;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .week-block:last-child::before { display: none; }
+  .week-dot {
+    position: absolute;
+    left: 0.4rem;
+    top: 8px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .week-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+  .week-skills { display: flex; flex-direction: column; gap: 0.5rem; }
+  .week-skill-row {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+  .week-skill-row:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .week-skill-name { font-size: 0.9rem; font-weight: 500; }
+  .week-skill-right { display: flex; gap: 0.4rem; align-items: center; }
+  .week-skill-hours { font-family: var(--mono); font-size: 0.72rem; color: var(--ink2); }
+
+  /* EMPTY STATE */
+  .no-results { text-align: center; padding: 3rem; color: var(--ink2); font-size: 0.9rem; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.35s ease both; }
+  .fade-up-2 { animation: fadeUp 0.35s 0.1s ease both; }
+  .fade-up-3 { animation: fadeUp 0.35s 0.2s ease both; }
+
+  /* FOUNDER */
+  .founder-section {
+    background: var(--ink);
+    padding: 3.5rem 0;
+  }
+  .founder-card {
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 1.5rem;
+  }
+  @media (max-width: 560px) { .founder-card { flex-direction: column; text-align: center; } }
+  .founder-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent) 0%, #d4a242 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(212,98,42,0.4);
+  }
+  .founder-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.4rem;
+  }
+  .founder-name {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+  }
+  .founder-role {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 0.75rem;
+  }
+  .founder-bio {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.65;
+  }
+
+  footer {
+    background: #111;
+    color: #555;
+    text-align: center;
+    padding: 1.25rem;
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    border-top: 1px solid #222;
+  }
+  footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">AI<span>Skills</span>Hub</div>
+  <div class="nav-links">
+    <button class="nav-link active" id="nav-home" onclick="showPage('home')">Home</button>
+    <button class="nav-link" id="nav-skills" onclick="showPage('skills')">Skills</button>
+    <button class="nav-link" id="nav-roadmap" onclick="showPage('roadmap')">Roadmap</button>
+  </div>
+</nav>
+
+<!-- ══════════ HOME ══════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-eyebrow">v1 · 14 skills · 6 categories</div>
+    <h1 class="hero-title">AI Data Engineer<br/><em>Skills Hub</em></h1>
+    <p class="hero-sub">Your structured learning path from data engineering to the AI-native stack — pipelines, features, models, and production ML.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="showPage('skills')">Browse Skills →</button>
+      <button class="btn-outline" onclick="showPage('roadmap')">Build My Roadmap</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+      <div class="what-grid">
+        <div class="what-text fade-up">
+          <div class="section-title">What is an AI Data Engineer?</div>
+          <div class="section-sub">The role that bridges data infrastructure and production ML</div>
+          <p>AI Data Engineers build the pipelines, feature stores, and data infrastructure that power machine learning systems in production. They sit between traditional data engineering and ML Engineering.</p>
+          <p>Unlike a classic data engineer who focuses on reliable pipelines and warehouses, an AI DE must also understand model training workflows, feature engineering, vector databases, LLM integration patterns, and MLOps tooling.</p>
+          <p>This hub helps you close those skill gaps systematically — whether you're coming from data engineering, data analysis, or another technical role.</p>
+        </div>
+        <div class="what-visual fade-up-2">
+          <div class="what-visual-title">Who transitions to this role?</div>
+          <div>
+            <div class="role-chip"><span class="dot" style="background:#2a7dd4"></span> Data Engineer</div>
+            <div class="role-chip"><span class="dot" style="background:#2ab87a"></span> Data Analyst</div>
+            <div class="role-chip"><span class="dot" style="background:#8c42d4"></span> ML Engineer</div>
+            <div class="role-chip"><span class="dot" style="background:#d4622a"></span> Software Engineer</div>
+            <div class="role-chip"><span class="dot" style="background:#d4a242"></span> Analytics Engineer</div>
+          </div>
+          <div style="margin-top:1.2rem; border-top:1px solid var(--border); padding-top:1rem;">
+            <div class="what-visual-title" style="margin-bottom:0.5rem;">Key responsibilities</div>
+            <ul style="list-style:none; font-size:0.82rem; color:var(--ink2); line-height:1.8;">
+              <li>⚙️ &nbsp;Build scalable feature pipelines</li>
+              <li>🔍 &nbsp;Instrument data quality & observability</li>
+              <li>🚀 &nbsp;Deploy and monitor ML models</li>
+              <li>🤖 &nbsp;Integrate LLMs and vector search</li>
+              <li>📡 &nbsp;Real-time streaming for AI features</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section fade-up-3">
+      <div class="section-title">Skill Map</div>
+      <div class="section-sub">Click any category to explore its skills</div>
+      <div class="cat-grid" id="cat-grid"></div>
+      <div style="text-align:center; margin-top:2rem;">
+        <button class="btn-primary" onclick="showPage('skills')">Explore all 14 skills →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SKILLS ══════════ -->
+<div class="page" id="page-skills">
+  <div class="container">
+    <div class="skills-header">
+      <div class="section-title" style="margin-bottom:0.2rem">All Skills</div>
+      <div class="section-sub">14 skills across 6 categories</div>
+      <div class="filters-bar">
+        <div>
+          <div class="filter-label" style="margin-bottom:0.4rem">Category</div>
+          <div class="filter-pills" id="cat-filter-pills"></div>
+        </div>
+        <div>
+          <div class="filter-label" style="margin-bottom:0.4rem">Level</div>
+          <div class="filter-pills" id="level-filter-pills"></div>
+        </div>
+        <div class="trending-toggle">
+          <button class="toggle-switch" id="trending-toggle" onclick="toggleTrending()"></button>
+          <span class="toggle-label">Trending only</span>
+        </div>
+      </div>
+    </div>
+    <div class="skills-grid" id="skills-grid"></div>
+  </div>
+</div>
+
+<!-- ══════════ SKILL DETAIL ══════════ -->
+<div class="page detail-page" id="page-detail">
+  <div class="container">
+    <button class="back-btn" onclick="showPage('skills')">← Back to skills</button>
+    <div id="detail-content"></div>
+  </div>
+</div>
+
+<!-- ══════════ ROADMAP ══════════ -->
+<div class="page roadmap-page" id="page-roadmap">
+  <div class="container">
+    <div class="section-title" style="margin-bottom:0.3rem">Roadmap Generator</div>
+    <div class="section-sub" style="margin-bottom:1.5rem">Get a personalised, week-by-week learning plan based on your role and availability.</div>
+    <div class="roadmap-grid">
+      <div class="roadmap-form-card">
+        <div class="roadmap-form-title">Configure Your Path</div>
+        <div class="form-group">
+          <label class="form-label">Current Role</label>
+          <select class="form-select" id="role-select">
+            <option value="Data Engineer">Data Engineer</option>
+            <option value="Data Analyst">Data Analyst</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Hours per week to study</label>
+          <input type="number" class="form-input" id="hours-input" value="6" min="1" max="40" />
+        </div>
+        <button class="form-submit" onclick="generateRoadmap()">Generate Roadmap →</button>
+      </div>
+      <div class="roadmap-output" id="roadmap-output">
+        <div class="roadmap-empty">
+          <div class="roadmap-empty-icon">🗺️</div>
+          <div class="roadmap-empty-text">Fill in the form and click "Generate Roadmap"<br/>to get your personalised learning plan.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOUNDER SECTION -->
+<div class="founder-section" id="founder-section">
+  <div class="founder-card">
+    <div class="founder-avatar">JK</div>
+    <div>
+      <div class="founder-eyebrow">Built by</div>
+      <div class="founder-name">Jnana Karri</div>
+      <div class="founder-role">Data Engineer · Founder, AI Skills Hub</div>
+      <div class="founder-bio">
+        Jnana built this hub to help data professionals level up into the AI-native stack —
+        from pipelines and feature engineering to LLMs and production MLOps.
+        Every skill here is curated from real-world engineering experience.
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>Built by <span>Jnana Karri</span> · AI Data Engineer Skills Hub · v1</footer>
+
+<script>
+// ══════════ DATA ══════════
+const SKILLS = [
+  {
+    slug: "sql-analytics-window-funcs",
+    name: "SQL Analytics & Window Functions",
+    category: "Foundations",
+    level: "Intermediate",
+    isTrending: false,
+    estimatedHours: 10,
+    shortSummary: "Use window and analytic functions to build powerful aggregations and time-based metrics.",
+    whyImportant: "Almost every AI/ML system still depends on clean aggregates and features computed in SQL.",
+    exampleSnippet: `SELECT customer_id,
+       order_date,
+       SUM(order_amount) OVER (
+         PARTITION BY customer_id
+         ORDER BY order_date
+         ROWS BETWEEN 3 PRECEDING AND CURRENT ROW
+       ) AS amt_last_4_orders
+FROM orders;`,
+    practiceIdea: "Build customer-level rolling 7/30/90-day revenue metrics for a public ecommerce dataset.",
+    tags: ["sql", "analytics", "window functions"]
+  },
+  {
+    slug: "pyspark-foundations",
+    name: "PySpark Foundations",
+    category: "Foundations",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 12,
+    shortSummary: "Write distributed transformations with PySpark DataFrames.",
+    whyImportant: "AI data engineers need to scale feature pipelines beyond a single machine.",
+    exampleSnippet: `df = spark.read.parquet("s3://bucket/raw")
+(df
+  .groupBy("customer_id")
+  .agg(F.sum("amount").alias("total_spent"))
+  .show())`,
+    practiceIdea: "Take a CSV with clickstream data and aggregate sessions and user-level metrics in PySpark.",
+    tags: ["spark", "pyspark", "big data"]
+  },
+  {
+    slug: "data-modeling-lakehouse",
+    name: "Data Modeling for Lakehouse",
+    category: "Foundations",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 8,
+    shortSummary: "Design lakehouse models across raw, refined, and serving layers (Bronze/Silver/Gold).",
+    whyImportant: "Good modeling keeps ML features, BI, and batch/streaming pipelines aligned.",
+    exampleSnippet: `Bronze: raw_ingest_events
+Silver: clean_session_events
+Gold:   fact_session_metrics
+        dim_user`,
+    practiceIdea: "Draw a model for a subscription product with fact tables and dimensions for reporting + ML features.",
+    tags: ["data modeling", "lakehouse", "medallion"]
+  },
+  {
+    slug: "ml-basics-supervised",
+    name: "ML Basics: Supervised Learning",
+    category: "ML",
+    level: "Beginner",
+    isTrending: false,
+    estimatedHours: 8,
+    shortSummary: "Understand the supervised learning workflow: data → features → model → evaluation.",
+    whyImportant: "Gives you the mental model for almost all tabular ML problems.",
+    exampleSnippet: `# Split train/test, fit a model, check RMSE or accuracy
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+print(model.score(X_test, y_test))`,
+    practiceIdea: "Train a model to predict housing prices or loan default using a public dataset.",
+    tags: ["machine learning", "supervised", "tabular"]
+  },
+  {
+    slug: "feature-engineering-tabular",
+    name: "Feature Engineering for Tabular Data",
+    category: "ML",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 10,
+    shortSummary: "Handle missing values, encodings, scaling, and domain features for ML models.",
+    whyImportant: "Most ML gains come from good features, not exotic models.",
+    exampleSnippet: `# Target encoding + log transform + interaction feature
+import pandas as pd, numpy as np
+
+df['log_revenue'] = np.log1p(df['revenue'])
+df['days_since_signup'] = (pd.Timestamp.now() - df['signup_date']).dt.days
+df['revenue_per_day'] = df['log_revenue'] / (df['days_since_signup'] + 1)`,
+    practiceIdea: "Take a churn dataset and engineer at least 5 new features; compare model performance.",
+    tags: ["feature engineering", "churn", "tabular"]
+  },
+  {
+    slug: "mlflow-experiment-tracking",
+    name: "Experiment Tracking with MLflow",
+    category: "MLOps",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 6,
+    shortSummary: "Track parameters, metrics, and artifacts for ML experiments with full reproducibility.",
+    whyImportant: "Enables reproducibility and team collaboration on models.",
+    exampleSnippet: `import mlflow
+
+with mlflow.start_run():
+    mlflow.log_param("max_depth", 6)
+    mlflow.log_param("n_estimators", 200)
+    mlflow.log_metric("rmse", 0.41)
+    mlflow.log_metric("r2", 0.87)
+    mlflow.sklearn.log_model(model, "model")`,
+    practiceIdea: "Wrap one of your models with MLflow tracking and compare at least 3 runs.",
+    tags: ["mlflow", "tracking", "mlops"]
+  },
+  {
+    slug: "batch-scoring-pipeline",
+    name: "Batch Scoring Pipeline",
+    category: "MLOps",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 10,
+    shortSummary: "Generate batch predictions at scale and write them to a warehouse table.",
+    whyImportant: "Common enterprise pattern: nightly or hourly batch scoring drives many AI products.",
+    exampleSnippet: `# 1. Load features from warehouse
+features_df = spark.read.table("gold.customer_features")
+
+# 2. Load model from registry
+model = mlflow.sklearn.load_model("models:/churn_v2/Production")
+
+# 3. Score + write predictions
+preds = model.predict(features_df.toPandas())
+features_df.withColumn("prediction", lit(preds)).write.mode("overwrite")\\
+    .saveAsTable("gold.churn_predictions")`,
+    practiceIdea: "Implement a batch scoring job that writes predictions for 30-day demand into a fact table.",
+    tags: ["batch scoring", "spark", "warehouse"]
+  },
+  {
+    slug: "model-monitoring-drift",
+    name: "Model Monitoring & Drift Detection",
+    category: "MLOps",
+    level: "Advanced",
+    isTrending: true,
+    estimatedHours: 8,
+    shortSummary: "Monitor data and prediction distributions to catch drift before it hurts business.",
+    whyImportant: "Keeps models from silently degrading in production — one of the most overlooked skills.",
+    exampleSnippet: `# Population Stability Index for drift detection
+def psi(expected, actual, buckets=10):
+    def scale_range(input, min, max):
+        return (input - min) / (max - min)
+    
+    breakpoints = np.linspace(0, 1, buckets + 1)
+    expected_perc = np.histogram(expected, breakpoints)[0] / len(expected)
+    actual_perc = np.histogram(actual, breakpoints)[0] / len(actual)
+    return np.sum((actual_perc - expected_perc) * np.log(actual_perc / expected_perc))`,
+    practiceIdea: "Instrument one of your demo models with a simple drift check on 2–3 key features.",
+    tags: ["monitoring", "drift", "mlops"]
+  },
+  {
+    slug: "rag-basics",
+    name: "RAG Basics (Retrieval-Augmented Generation)",
+    category: "LLM",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 10,
+    shortSummary: "Combine a vector search index with an LLM to answer questions over your own data.",
+    whyImportant: "Core pattern in modern AI apps: ground LLMs on your datasets to reduce hallucinations.",
+    exampleSnippet: `# Simple RAG pipeline
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+
+# 1) Chunk + embed docs
+vectorstore = Chroma.from_documents(docs, OpenAIEmbeddings())
+
+# 2) Retrieve top-k at query time
+retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+
+# 3) Pass context to LLM
+chain = RetrievalQA.from_chain_type(llm, retriever=retriever)`,
+    practiceIdea: "Build a tiny RAG demo over your own project README + notes.",
+    tags: ["rag", "llm", "embeddings", "vector"]
+  },
+  {
+    slug: "vector-databases",
+    name: "Vector Databases for AI",
+    category: "LLM",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 6,
+    shortSummary: "Store embeddings and perform similarity search at scale for semantic retrieval.",
+    whyImportant: "Makes semantic search and recommendations efficient in production AI systems.",
+    exampleSnippet: `-- pgvector example
+CREATE TABLE documents (
+  id         SERIAL PRIMARY KEY,
+  content    TEXT,
+  embedding  VECTOR(1536),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Cosine similarity search
+SELECT content, 1 - (embedding <=> query_embedding) AS score
+FROM documents
+ORDER BY embedding <=> query_embedding
+LIMIT 5;`,
+    practiceIdea: "Set up a local pgvector or Qdrant instance and index 100+ text chunks.",
+    tags: ["vector database", "embeddings", "similarity search"]
+  },
+  {
+    slug: "kafka-streaming-basics",
+    name: "Streaming Basics with Kafka",
+    category: "Streaming",
+    level: "Beginner",
+    isTrending: true,
+    estimatedHours: 6,
+    shortSummary: "Understand topics, partitions, producers, and consumers for event-driven architectures.",
+    whyImportant: "Streaming is often the backbone for real-time AI features like fraud detection and recommendations.",
+    exampleSnippet: `from kafka import KafkaConsumer
+import json
+
+consumer = KafkaConsumer(
+    'click-events',
+    bootstrap_servers=['localhost:9092'],
+    group_id='ml-feature-pipeline',
+    value_deserializer=lambda m: json.loads(m.decode('utf-8'))
+)
+
+for message in consumer:
+    event = message.value
+    # enrich and write to feature store
+    process_event(event)`,
+    practiceIdea: "Create a toy stream of events (clicks, transactions) and write a simple consumer.",
+    tags: ["kafka", "kinesis", "streaming"]
+  },
+  {
+    slug: "flink-stream-processing",
+    name: "Stream Processing with Flink",
+    category: "Streaming",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 10,
+    shortSummary: "Build Flink jobs for event-time windows, watermarks, and real-time aggregations.",
+    whyImportant: "Flink is a core skill for real-time AI feature pipelines at scale.",
+    exampleSnippet: `// Keyed stream + tumbling window aggregation (Flink Java/Scala API)
+DataStream<ClickEvent> stream = env
+    .addSource(new FlinkKafkaConsumer<>(...))
+    .assignTimestampsAndWatermarks(...);
+
+stream
+    .keyBy(ClickEvent::getUserId)
+    .window(TumblingEventTimeWindows.of(Time.minutes(5)))
+    .aggregate(new ClickCountAggregator())
+    .print();`,
+    practiceIdea: "Build a Flink job that computes per-user rolling metrics from a clickstream.",
+    tags: ["flink", "stream processing", "real time"]
+  },
+  {
+    slug: "data-quality-great-expectations",
+    name: "Data Quality with Great Expectations",
+    category: "DQ",
+    level: "Intermediate",
+    isTrending: true,
+    estimatedHours: 8,
+    shortSummary: "Define and run data quality checks as code — the cornerstone of reliable AI pipelines.",
+    whyImportant: "Data contracts and DQ checks are foundational for reliable AI — garbage in, garbage out.",
+    exampleSnippet: `import great_expectations as gx
+
+context = gx.get_context()
+validator = context.get_validator(...)
+
+# Define expectations
+validator.expect_column_values_to_not_be_null("customer_id")
+validator.expect_column_values_to_be_between("revenue", 0, 1_000_000)
+validator.expect_column_values_to_be_in_set("status", ["active", "churned"])
+
+results = validator.validate()`,
+    practiceIdea: "Add DQ checks to one of your ETL pipelines for 3–5 key columns.",
+    tags: ["data quality", "great expectations", "dq"]
+  },
+  {
+    slug: "data-observability-metrics",
+    name: "Data Observability & Pipeline Metrics",
+    category: "DQ",
+    level: "Intermediate",
+    isTrending: false,
+    estimatedHours: 6,
+    shortSummary: "Track row counts, freshness, error rates, and SLAs for all your data pipelines.",
+    whyImportant: "Helps quickly spot breakages that affect ML models and dashboards before users do.",
+    exampleSnippet: `-- Observability metrics table
+INSERT INTO pipeline_metrics (
+  pipeline_name, run_id, run_date,
+  row_count, latency_seconds, error_count, sla_met
+)
+VALUES (
+  'customer_features_daily',
+  'run_2024_01_15_001',
+  CURRENT_DATE,
+  (SELECT COUNT(*) FROM gold.customer_features WHERE updated_date = CURRENT_DATE),
+  142, 0, TRUE
+);`,
+    practiceIdea: "Instrument 1–2 existing jobs with latency and row-count metrics; visualize in a dashboard.",
+    tags: ["observability", "metrics", "pipelines"]
+  }
+];
+
+const CATEGORIES = {
+  Foundations: { icon: "🏗️", desc: "Core SQL, Spark, and lakehouse patterns every AI DE must master.", cssClass: "foundations" },
+  ML: { icon: "🧠", desc: "Supervised learning, feature engineering, and model evaluation basics.", cssClass: "ml" },
+  MLOps: { icon: "⚙️", desc: "Experiment tracking, batch scoring, and model monitoring in production.", cssClass: "mlops" },
+  LLM: { icon: "🤖", desc: "RAG, vector databases, and LLM integration patterns for AI apps.", cssClass: "llm" },
+  Streaming: { icon: "📡", desc: "Kafka and Flink for real-time feature pipelines and event-driven AI.", cssClass: "streaming" },
+  DQ: { icon: "🔍", desc: "Data quality checks, observability, and pipeline reliability metrics.", cssClass: "dq" }
+};
+
+// ══════════ STATE ══════════
+let activeCat = 'All';
+let activeLevel = 'All';
+let trendingOnly = false;
+
+// ══════════ NAV ══════════
+function showPage(page) {
+  document.getElementById('founder-section').style.display = (page === 'home') ? '' : 'none';
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('nav-' + (page === 'detail' ? 'skills' : page)).classList.add('active');
+  window.scrollTo(0, 0);
+  if (page === 'skills') renderSkillsGrid();
+}
+
+// ══════════ HOME ══════════
+function renderCatGrid() {
+  const grid = document.getElementById('cat-grid');
+  const catCounts = {};
+  const catSamples = {};
+  SKILLS.forEach(s => {
+    catCounts[s.category] = (catCounts[s.category] || 0) + 1;
+    if (!catSamples[s.category]) catSamples[s.category] = [];
+    if (catSamples[s.category].length < 2) catSamples[s.category].push(s.name);
+  });
+  grid.innerHTML = Object.entries(CATEGORIES).map(([cat, info]) => `
+    <div class="cat-card ${info.cssClass}" onclick="filterByCat('${cat}')">
+      <div class="cat-card-icon">${info.icon}</div>
+      <div class="cat-card-name">${cat}</div>
+      <div class="cat-card-desc">${info.desc}</div>
+      <div class="cat-card-footer">
+        <span class="cat-count">${catCounts[cat] || 0} skills</span>
+        <span class="cat-tag">Explore →</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterByCat(cat) {
+  activeCat = cat;
+  activeLevel = 'All';
+  trendingOnly = false;
+  showPage('skills');
+}
+
+// ══════════ SKILLS ══════════
+function initFilters() {
+  const cats = ['All', ...Object.keys(CATEGORIES)];
+  document.getElementById('cat-filter-pills').innerHTML = cats.map(c =>
+    `<button class="pill ${c === activeCat ? 'active' : ''}" onclick="setCat('${c}')">${c}</button>`
+  ).join('');
+
+  const levels = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+  document.getElementById('level-filter-pills').innerHTML = levels.map(l =>
+    `<button class="pill ${l === activeLevel ? 'active' : ''}" onclick="setLevel('${l}')">${l}</button>`
+  ).join('');
+
+  const toggle = document.getElementById('trending-toggle');
+  toggle.className = 'toggle-switch' + (trendingOnly ? ' on' : '');
+}
+
+function setCat(cat) {
+  activeCat = cat;
+  initFilters();
+  renderSkillsGrid();
+}
+function setLevel(level) {
+  activeLevel = level;
+  initFilters();
+  renderSkillsGrid();
+}
+function toggleTrending() {
+  trendingOnly = !trendingOnly;
+  initFilters();
+  renderSkillsGrid();
+}
+
+function renderSkillsGrid() {
+  initFilters();
+  let filtered = SKILLS.filter(s => {
+    if (activeCat !== 'All' && s.category !== activeCat) return false;
+    if (activeLevel !== 'All' && s.level !== activeLevel) return false;
+    if (trendingOnly && !s.isTrending) return false;
+    return true;
+  });
+
+  const grid = document.getElementById('skills-grid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="no-results">No skills match your filters. Try broadening your search.</div>';
+    return;
+  }
+  grid.innerHTML = filtered.map(s => `
+    <div class="skill-card" onclick="showDetail('${s.slug}')">
+      <div class="skill-card-top">
+        <div class="skill-name">${s.name}</div>
+        ${s.isTrending ? '<div class="trending-badge">🔥 Trending</div>' : ''}
+      </div>
+      <div class="skill-meta">
+        <span class="meta-tag cat-${s.category.toLowerCase()}">${s.category}</span>
+        <span class="meta-tag level-${s.level.toLowerCase()}">${s.level}</span>
+      </div>
+      <div class="skill-summary">${s.shortSummary}</div>
+      <div class="skill-footer">
+        <span class="hours-chip">⏱ ${s.estimatedHours}h estimated</span>
+        <button class="view-btn">View detail →</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══════════ DETAIL ══════════
+function catClass(cat) {
+  return 'cat-' + cat.toLowerCase();
+}
+
+function showDetail(slug) {
+  const skill = SKILLS.find(s => s.slug === slug);
+  if (!skill) return;
+
+  const related = SKILLS.filter(s =>
+    s.slug !== slug && (
+      s.category === skill.category ||
+      s.tags.some(t => skill.tags.includes(t))
+    )
+  ).slice(0, 3);
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="detail-header">
+      <div>
+        <h1 class="detail-title">${skill.name}</h1>
+        <div class="detail-meta">
+          <span class="meta-tag ${catClass(skill.category)}">${skill.category}</span>
+          <span class="meta-tag level-${skill.level.toLowerCase()}">${skill.level}</span>
+          ${skill.isTrending ? '<span class="trending-badge">🔥 Trending</span>' : ''}
+        </div>
+      </div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-main">
+        <div class="detail-section">
+          <div class="detail-section-label">Summary</div>
+          <p>${skill.shortSummary}</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-label">Why it matters</div>
+          <p>${skill.whyImportant}</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-label">Code example</div>
+          <div class="code-block"><code>${escapeHtml(skill.exampleSnippet)}</code></div>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-label">Practice idea</div>
+          <p>${skill.practiceIdea}</p>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-label">Tags</div>
+          <div class="tags-container">
+            ${skill.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="detail-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">At a glance</div>
+          <div class="stat-row"><span class="stat-label">Category</span><span class="stat-value">${skill.category}</span></div>
+          <div class="stat-row"><span class="stat-label">Level</span><span class="stat-value">${skill.level}</span></div>
+          <div class="stat-row"><span class="stat-label">Est. hours</span><span class="stat-value">${skill.estimatedHours}h</span></div>
+          <div class="stat-row"><span class="stat-label">Trending</span><span class="stat-value">${skill.isTrending ? '🔥 Yes' : '—'}</span></div>
+        </div>
+        ${related.length > 0 ? `
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Related skills</div>
+          ${related.map(r => `
+            <div class="related-skill" onclick="showDetail('${r.slug}')">
+              <div class="related-skill-name">${r.name}</div>
+              <div class="related-skill-meta">
+                <span class="meta-tag ${catClass(r.category)}" style="font-size:0.68rem">${r.category}</span>
+                <span class="meta-tag level-${r.level.toLowerCase()}" style="font-size:0.68rem">${r.level}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        ` : ''}
+      </div>
+    </div>
+  `;
+
+  showPage('detail');
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ══════════ ROADMAP ══════════
+const ROADMAP_ORDER = {
+  "Data Engineer": [
+    // Foundations first
+    "sql-analytics-window-funcs", "pyspark-foundations", "data-modeling-lakehouse",
+    // ML
+    "ml-basics-supervised", "feature-engineering-tabular",
+    // MLOps
+    "mlflow-experiment-tracking", "batch-scoring-pipeline", "model-monitoring-drift",
+    // LLM
+    "rag-basics", "vector-databases",
+    // Streaming
+    "kafka-streaming-basics", "flink-stream-processing",
+    // DQ
+    "data-quality-great-expectations", "data-observability-metrics"
+  ],
+  "Data Analyst": [
+    // Foundations
+    "sql-analytics-window-funcs", "data-modeling-lakehouse", "pyspark-foundations",
+    // ML
+    "ml-basics-supervised", "feature-engineering-tabular",
+    // MLOps
+    "mlflow-experiment-tracking", "batch-scoring-pipeline",
+    // DQ
+    "data-quality-great-expectations", "data-observability-metrics",
+    // LLM
+    "rag-basics", "vector-databases",
+    // Streaming (optional advanced)
+    "kafka-streaming-basics", "flink-stream-processing", "model-monitoring-drift"
+  ],
+  "Other": [
+    "sql-analytics-window-funcs", "ml-basics-supervised", "pyspark-foundations",
+    "data-modeling-lakehouse", "feature-engineering-tabular",
+    "mlflow-experiment-tracking", "kafka-streaming-basics",
+    "rag-basics", "vector-databases",
+    "batch-scoring-pipeline", "model-monitoring-drift",
+    "data-quality-great-expectations", "data-observability-metrics",
+    "flink-stream-processing"
+  ]
+};
+
+function generateRoadmap() {
+  const role = document.getElementById('role-select').value;
+  const hours = parseInt(document.getElementById('hours-input').value) || 6;
+
+  const order = ROADMAP_ORDER[role] || ROADMAP_ORDER["Other"];
+  const orderedSkills = order.map(slug => SKILLS.find(s => s.slug === slug)).filter(Boolean);
+
+  // Group into weeks
+  const weeks = [];
+  let currentWeek = [];
+  let weekHours = 0;
+  let weekNum = 1;
+
+  orderedSkills.forEach(skill => {
+    const sh = skill.estimatedHours || 4;
+    if (weekHours + sh > hours * 2 && currentWeek.length > 0) {
+      weeks.push({ label: `Week ${weekNum}–${weekNum + 1}`, skills: currentWeek });
+      weekNum += 2;
+      currentWeek = [skill];
+      weekHours = sh;
+    } else {
+      currentWeek.push(skill);
+      weekHours += sh;
+    }
+  });
+  if (currentWeek.length > 0) {
+    weeks.push({ label: `Week ${weekNum}–${weekNum + 1}`, skills: currentWeek });
+  }
+
+  const output = document.getElementById('roadmap-output');
+  output.innerHTML = `
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;">
+      <div style="font-size:0.8rem;color:var(--ink2);margin-bottom:0.25rem;font-family:var(--mono)">YOUR ROADMAP</div>
+      <div style="font-weight:600;font-size:1rem;">${role} → AI Data Engineer</div>
+      <div style="font-size:0.83rem;color:var(--ink2);margin-top:0.25rem;">${orderedSkills.length} skills · ~${orderedSkills.reduce((a,s) => a+(s.estimatedHours||0), 0)}h total · ~${hours}h/week</div>
+    </div>
+    <div class="roadmap-output">
+      ${weeks.map(w => `
+        <div class="week-block">
+          <div class="week-dot"></div>
+          <div class="week-label">${w.label}</div>
+          <div class="week-skills">
+            ${w.skills.map(s => `
+              <div class="week-skill-row" onclick="showDetail('${s.slug}')">
+                <div>
+                  <div class="week-skill-name">${s.name}</div>
+                  <div style="display:flex;gap:0.3rem;margin-top:0.25rem;">
+                    <span class="meta-tag ${catClass(s.category)}" style="font-size:0.68rem">${s.category}</span>
+                    <span class="meta-tag level-${s.level.toLowerCase()}" style="font-size:0.68rem">${s.level}</span>
+                  </div>
+                </div>
+                <div class="week-skill-right">
+                  ${s.isTrending ? '<span class="trending-badge">🔥</span>' : ''}
+                  <span class="week-skill-hours">${s.estimatedHours}h</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ══════════ INIT ══════════
+renderCatGrid();
+renderSkillsGrid();
+</script>
+</body>
+</html>
