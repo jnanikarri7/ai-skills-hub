@@ -132,6 +132,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:52px;display:flex;ali
 .sk-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:0.5rem;border-top:1px solid var(--gb)}
 .sk-hrs{font-size:0.72rem;color:var(--ink3)}
 .sk-lnk{font-size:0.78rem;color:var(--accent);font-weight:500}
+.sk-btn{background:var(--green);color:#fff;border:none;border-radius:6px;padding:0.3rem 0.6rem;font-size:0.7rem;font-weight:500;cursor:pointer;margin-right:0.5rem;transition:background 0.2s}
+.sk-btn.completed{background:var(--accent)}
+.sk-btn:hover{background:#4da9ff}
 
 /* DETAIL */
 .detail-wrap{padding:100px 0 5rem}
@@ -224,7 +227,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:52px;display:flex;ali
 .dh{background:rgba(255,69,58,0.1);color:var(--red);border:1px solid rgba(255,69,58,0.3)}
 .ds{background:rgba(191,90,242,0.1);color:var(--purple);border:1px solid rgba(191,90,242,0.3)}
 
-/* FOOTER */
+/* GUIDE */
+.guide-section{margin-bottom:2rem;background:var(--glass);border:1px solid var(--gb);border-radius:16px;padding:1.5rem;backdrop-filter:blur(10px)}
+.guide-title{font-size:1.2rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:1rem;color:var(--accent)}
+.guide-text{font-size:0.9rem;color:var(--ink2);line-height:1.7;font-weight:300;margin-bottom:1rem}
+.guide-list{list-style:none;padding:0;margin:0}
+.guide-list li{font-size:0.85rem;color:var(--ink2);line-height:1.6;padding:0.3rem 0;position:relative;padding-left:1.2rem}
+.guide-list li:before{content:'✓';position:absolute;left:0;color:var(--green);font-weight:600}
+
+/* LOGIN MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1000;align-items:center;justify-content:center}
+.modal.show{display:flex}
+.modal-content{background:var(--bg);border:1px solid var(--gb);border-radius:20px;padding:2rem;max-width:400px;width:90%;position:relative}
+.modal-close{position:absolute;top:1rem;right:1rem;width:24px;height:24px;border-radius:50%;background:var(--glass);border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.8rem}
+.modal-title{font-size:1.2rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.modal-form{display:flex;flex-direction:column;gap:1rem}
+.modal-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--gb);border-radius:10px;padding:0.8rem;font-family:var(--font);font-size:0.9rem;color:var(--ink);outline:none}
+.modal-input:focus{border-color:var(--accent)}
+.modal-btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:980px;padding:0.8rem;font-family:var(--font);font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.2s}
+.modal-btn:hover{background:#4da9ff}
+.modal-toggle{font-size:0.8rem;color:var(--ink3);text-align:center;margin-top:1rem;cursor:pointer}
+.modal-toggle:hover{color:var(--ink)}
+.user-info{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;color:var(--ink3)}
+.user-info span{font-weight:500;color:var(--accent)}
 footer{border-top:1px solid var(--gb);padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:0.75rem;color:var(--ink3)}
 .footer-logo{font-size:0.85rem;font-weight:600;letter-spacing:-0.02em;color:var(--ink2)}
 .footer-logo span{color:var(--accent)}
@@ -245,7 +270,9 @@ select option{background:#1c1c1e;color:var(--ink)}
     <button class="nav-link active" id="nav-home" onclick="showPage('home')">Home</button>
     <button class="nav-link" id="nav-skills" onclick="showPage('skills')">Skills</button>
     <button class="nav-link" id="nav-interview" onclick="showPage('interview')">Interview Prep</button>
+    <button class="nav-link" id="nav-guide" onclick="showPage('guide')">Prep Guide</button>
     <button class="nav-link" id="nav-roadmap" onclick="showPage('roadmap')">Roadmap</button>
+    <button class="nav-link" id="nav-login" onclick="showLoginModal()">Login</button>
   </div>
 </nav>
 
@@ -266,7 +293,7 @@ select option{background:#1c1c1e;color:var(--ink)}
   <div class="stats-bar">
     <div class="stat-item"><div class="stat-num">14<span>+</span></div><div class="stat-lbl">Curated Skills</div></div>
     <div class="stat-item"><div class="stat-num">6</div><div class="stat-lbl">Categories</div></div>
-    <div class="stat-item"><div class="stat-num">40<span>+</span></div><div class="stat-lbl">Interview Q&As</div></div>
+    <div class="stat-item"><div class="stat-num">1200<span>+</span></div><div class="stat-lbl">Interview Q&As</div></div>
     <div class="stat-item"><div class="stat-num">3</div><div class="stat-lbl">Role Roadmaps</div></div>
   </div>
 
@@ -384,7 +411,65 @@ select option{background:#1c1c1e;color:var(--ink)}
   </div>
 </div>
 
-<!-- ═══════ INTERVIEW ═══════ -->
+<!-- ═══════ PREP GUIDE ═══════ -->
+<div class="page" id="page-guide">
+  <div class="container">
+    <div class="iq-wrap">
+      <div class="eyebrow">Interview Strategy</div>
+      <h1 class="s-title" style="margin-bottom:0.5rem">What Actually Matters</h1>
+      <p class="s-sub" style="margin-bottom:2.5rem">Focus on the foundations that can't be faked. Here's the real prep guide for Amazon Data Engineering interviews.</p>
+      <div class="guide-section">
+        <h2 class="guide-title">1️⃣ SQL (Very Strong)</h2>
+        <p class="guide-text">If your SQL is weak, nothing else will compensate. Master these:</p>
+        <ul class="guide-list">
+          <li>Complex joins (inner, outer, cross)</li>
+          <li>Window functions (ROW_NUMBER, RANK, LAG/LEAD)</li>
+          <li>Aggregations with GROUP BY and HAVING</li>
+          <li>Query optimization thinking (EXPLAIN plans, indexes)</li>
+          <li>Writing clean, correct logic</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <h2 class="guide-title">2️⃣ Data Modeling</h2>
+        <p class="guide-text">You'll design systems like e-commerce, event tracking, transactions. Focus on:</p>
+        <ul class="guide-list">
+          <li>Fact vs dimension tables</li>
+          <li>Handling late arriving data</li>
+          <li>SCD (Slowly Changing Dimensions) concepts</li>
+          <li>Partitioning strategy</li>
+          <li>Scalability trade-offs</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <h2 class="guide-title">3️⃣ Data Warehousing Concepts</h2>
+        <p class="guide-text">Understand the big picture:</p>
+        <ul class="guide-list">
+          <li>ETL design patterns</li>
+          <li>Incremental vs full loads</li>
+          <li>Handling duplicates and data quality</li>
+          <li>Schema design decisions (star, snowflake)</li>
+          <li>Trade-offs between speed, cost, and accuracy</li>
+        </ul>
+      </div>
+      <div class="guide-section">
+        <h2 class="guide-title">4️⃣ Basic Python (Not DSA-heavy)</h2>
+        <p class="guide-text">This is NOT a LeetCode-style coding interview. Focus on practical problems:</p>
+        <ul class="guide-list">
+          <li>Deduplicating a list or dict</li>
+          <li>Parsing JSON or CSV</li>
+          <li>Small data transformations</li>
+          <li>Simple logic problems</li>
+        </ul>
+        <p class="guide-text"><strong>Why not PySpark?</strong> Because interviews test your foundations, not the framework. Frameworks can be learned. Data modeling thinking cannot be faked.</p>
+      </div>
+      <div class="guide-section">
+        <h2 class="guide-title">Final Advice</h2>
+        <p class="guide-text">If you're serious about cracking Amazon Data Engineering: Master SQL. Think in data models. Understand scale and trade-offs. Don't overprepare the wrong thing.</p>
+        <p class="guide-text">Hope this saves someone 2–3 weeks of unnecessary prep.</p>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="page" id="page-interview">
   <div class="container">
     <div class="iq-wrap">
@@ -392,15 +477,40 @@ select option{background:#1c1c1e;color:var(--ink)}
       <h1 class="s-title" style="margin-bottom:0.5rem">Interview Questions</h1>
       <p class="s-sub" style="margin-bottom:2.5rem">From simple concepts to full system design — click any question to reveal the answer.</p>
       <div class="iq-tabs">
-        <button class="iq-tab ae" onclick="switchTab('easy',this)">🟢 Simple</button>
-        <button class="iq-tab" onclick="switchTab('medium',this)">🟡 Medium</button>
+        <button class="iq-tab" onclick="switchTab('easy',this)">🟢 Simple</button>
+        <button class="iq-tab am" onclick="switchTab('medium',this)">🟡 Medium</button>
         <button class="iq-tab" onclick="switchTab('hard',this)">🔴 Hard</button>
         <button class="iq-tab" onclick="switchTab('system',this)">🟣 System Design</button>
       </div>
-      <div class="iq-panel active" id="iq-easy"></div>
-      <div class="iq-panel" id="iq-medium"></div>
+      <div class="iq-panel" id="iq-easy"></div>
+      <div class="iq-panel active" id="iq-medium"></div>
       <div class="iq-panel" id="iq-hard"></div>
       <div class="iq-panel" id="iq-system"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal" id="login-modal">
+  <div class="modal-content">
+    <div class="modal-close" onclick="hideLoginModal()">×</div>
+    <div id="login-form">
+      <div class="modal-title">Login</div>
+      <form class="modal-form" onsubmit="login(event)">
+        <input class="modal-input" type="email" id="login-email" placeholder="Email" required>
+        <input class="modal-input" type="password" id="login-password" placeholder="Password" required>
+        <button class="modal-btn" type="submit">Login</button>
+      </form>
+      <div class="modal-toggle" onclick="toggleRegister()">Don't have an account? Register</div>
+    </div>
+    <div id="register-form" style="display:none">
+      <div class="modal-title">Register</div>
+      <form class="modal-form" onsubmit="register(event)">
+        <input class="modal-input" type="email" id="register-email" placeholder="Email" required>
+        <input class="modal-input" type="password" id="register-password" placeholder="Password" required>
+        <button class="modal-btn" type="submit">Register</button>
+      </form>
+      <div class="modal-toggle" onclick="toggleLogin()">Already have an account? Login</div>
     </div>
   </div>
 </div>
@@ -600,7 +710,11 @@ function renderSkillsGrid(){
       <div class="sk-top"><div class="sk-name">${s.name}</div>${s.isTrending?'<div class="trending-dot" title="Trending"></div>':''}</div>
       <div class="sk-tags"><span class="tag ${s.category.toLowerCase()}">${s.category}</span><span class="tag ${s.level.toLowerCase()}">${s.level}</span></div>
       <div class="sk-summary">${s.shortSummary}</div>
-      <div class="sk-foot"><span class="sk-hrs">⏱ ${s.estimatedHours}h</span><span class="sk-lnk">View detail →</span></div>
+      <div class="sk-foot">
+        <span class="sk-hrs">⏱ ${s.estimatedHours}h</span>
+        ${currentUser ? `<button onclick="event.stopPropagation(); updateProgress('${s.slug}', !userProgress['${s.slug}']?.completed)" class="sk-btn ${userProgress[s.slug]?.completed ? 'completed' : ''}">${userProgress[s.slug]?.completed ? '✓ Completed' : 'Mark Complete'}</button>` : ''}
+        <span class="sk-lnk">View detail →</span>
+      </div>
     </div>`).join('');
 }
 
@@ -681,12 +795,38 @@ function generateRoadmap(){
 
 const IQ_CFG={easy:{lbl:'Simple',dc:'de',tabActive:'ae'},medium:{lbl:'Medium',dc:'dm',tabActive:'am'},hard:{lbl:'Hard',dc:'dh',tabActive:'ah'},system:{lbl:'System Design',dc:'ds',tabActive:'as'}};
 
+let IQ_DATA = {easy:[], medium:[], hard:[], system:[]};
+
+async function fetchInterviewQuestions() {
+  try {
+    console.log('Fetching interview questions...');
+    const response = await fetch('/api/interview?limit=500');
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${await response.text()}`);
+    }
+    const data = await response.json();
+    console.log('Fetched data:', data.length, 'questions');
+    data.forEach(q => {
+      const level = q.difficulty.toLowerCase().trim();
+      if (IQ_DATA[level]) {
+        IQ_DATA[level].push({q: q.question, a: q.answer_html, code: q.code});
+      } else {
+        console.warn('Unknown difficulty:', q.difficulty);
+      }
+    });
+    console.log('IQ_DATA counts:', Object.keys(IQ_DATA).map(k => `${k}: ${IQ_DATA[k].length}`));
+    Object.keys(IQ_DATA).forEach(renderIQ);
+  } catch (error) {
+    console.error('Failed to fetch interview questions:', error);
+  }
+}
+
 function renderIQ(level){
-  const qs=IQ[level]||[];const cfg=IQ_CFG[level];
-  document.getElementById('iq-'+level).innerHTML=qs.map((q,i)=>`
+  const qs=IQ_DATA[level]||[];const cfg=IQ_CFG[level];
+  document.getElementById('iq-'+level).innerHTML=qs.length ? qs.map((q,i)=>`
     <div class="iq-item" id="ii-${level}-${i}">
       <div class="iq-q" onclick="toggleIQ('${level}',${i})">
-        <span class="iq-num">0${i+1}</span>
+        <span class="iq-num">${String(i+1).padStart(2,'0')}</span>
         <span class="iq-qtext">${q.q}</span>
         <span class="iq-chev">▾</span>
       </div>
@@ -697,7 +837,7 @@ function renderIQ(level){
           ${q.code?`<div class="iq-code"><code>${esc(q.code)}</code></div>`:''}
         </div>
       </div>
-    </div>`).join('');
+    </div>`).join('') : '<div class="no-results">No questions available for this difficulty level.</div>';
 }
 
 function toggleIQ(level,idx){
@@ -715,14 +855,134 @@ function switchTab(level,btn){
   btn.className=`iq-tab ${IQ_CFG[level].tabActive}`;
 }
 
-// Scroll reveal
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+// Auth
+let currentUser = null;
+let token = localStorage.getItem('token');
+let userProgress = {};
+
+function showLoginModal() {
+  document.getElementById('login-modal').classList.add('show');
+}
+
+function hideLoginModal() {
+  document.getElementById('login-modal').classList.remove('show');
+}
+
+function toggleRegister() {
+  document.getElementById('login-form').style.display = 'none';
+  document.getElementById('register-form').style.display = 'block';
+}
+
+function toggleLogin() {
+  document.getElementById('register-form').style.display = 'none';
+  document.getElementById('login-form').style.display = 'block';
+}
+
+async function login(event) {
+  event.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: new URLSearchParams({username: email, password})
+    });
+    if (!response.ok) throw new Error(await response.text());
+    const data = await response.json();
+    token = data.access_token;
+    localStorage.setItem('token', token);
+    await loadUser();
+    hideLoginModal();
+    renderSkillsGrid(); // Re-render to show progress buttons
+  } catch (error) {
+    alert('Login failed: ' + error.message);
+  }
+}
+
+async function register(event) {
+  event.preventDefault();
+  const email = document.getElementById('register-email').value;
+  const password = document.getElementById('register-password').value;
+  try {
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password})
+    });
+    if (!response.ok) throw new Error(await response.text());
+    alert('Registration successful! Please login.');
+    toggleLogin();
+  } catch (error) {
+    alert('Registration failed: ' + error.message);
+  }
+}
+
+async function loadUser() {
+  if (!token) return;
+  try {
+    const response = await fetch('/api/auth/me', { // Need to add this endpoint
+      headers: {'Authorization': `Bearer ${token}`}
+    });
+    if (response.ok) {
+      currentUser = await response.json();
+      document.getElementById('nav-login').innerHTML = `<div class="user-info">👤 ${currentUser.email} <button onclick="logout()">Logout</button></div>`;
+      await loadProgress();
+    }
+  } catch (error) {
+    console.error('Failed to load user:', error);
+  }
+}
+
+async function loadProgress() {
+  if (!token) return;
+  try {
+    const response = await fetch('/api/progress', {
+      headers: {'Authorization': `Bearer ${token}`}
+    });
+    if (response.ok) {
+      const data = await response.json();
+      userProgress = {};
+      data.forEach(p => userProgress[p.skill_slug] = p);
+      renderSkillsGrid();
+    }
+  } catch (error) {
+    console.error('Failed to load progress:', error);
+  }
+}
+
+async function updateProgress(skillSlug, completed, hours) {
+  if (!token) return;
+  try {
+    const response = await fetch(`/api/progress/${skillSlug}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({completed, hours_logged: hours})
+    });
+    if (response.ok) {
+      await loadProgress();
+    }
+  } catch (error) {
+    console.error('Failed to update progress:', error);
+  }
+}
+
+function logout() {
+  token = null;
+  currentUser = null;
+  localStorage.removeItem('token');
+  document.getElementById('nav-login').innerHTML = 'Login';
+  renderSkillsGrid();
+}
 
 // Init
 renderCatGrid();
 renderSkillsGrid();
-Object.keys(IQ).forEach(renderIQ);
+fetchInterviewQuestions();
+loadUser();
 </script>
 </body>
 </html>
